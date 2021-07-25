@@ -55,17 +55,49 @@ class binaryTree{
 		printPreOrder(point.right);
 		}
 	public List<Integer> postorderTraversal(treeNode root) {
-
-        List<Integer> l2
-            = new ArrayList<Integer>();
-        treeNode point = root;
+	       	List<Integer> l2 = new ArrayList<Integer>();
+        	treeNode point = root;
                 if(point == null)
                         return l2;
-                //System.out.printf("%d ", point.data);
                 l2.addAll(postorderTraversal(point.left));
                 l2.addAll(postorderTraversal(point.right));
-
                 l2.add(point.data);
-        return l2;
-    }
+       		return l2;
 	}
+	void printInOrder(treeNode root){
+		treeNode point = root;
+		if(point == null)
+			return;
+		printInOrder(point.left);
+		System.out.printf("%d ", point.data);
+		printInOrder(point.right);
+		}
+	public List<Integer> inOrderTraversal(treeNode root) {
+	       	List<Integer> l2 = new ArrayList<Integer>();
+        	treeNode point = root;
+                if(point == null)
+                        return l2;
+                l2.addAll(inOrderTraversal(point.left));
+                l2.add(point.data);
+                l2.addAll(inOrderTraversal(point.right));
+       		return l2;
+	}
+	void printPostOrder(treeNode root){
+		treeNode point = root;
+		if(point == null)
+			return;
+		printPostOrder(point.left);
+		printPostOrder(point.right);
+		System.out.printf("%d ", point.data);
+		}
+	public List<Integer> preOrderTraversal(treeNode root) {
+	       	List<Integer> l2 = new ArrayList<Integer>();
+        	treeNode point = root;
+                if(point == null)
+                        return l2;
+                l2.add(point.data);
+                l2.addAll(preOrderTraversal(point.left));
+                l2.addAll(preOrderTraversal(point.right));
+       		return l2;
+	}
+}

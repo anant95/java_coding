@@ -1,17 +1,22 @@
 import java.util.Scanner;
-
+import java.util.ArrayList;
+import java.util.List;
 public class arrayList{
 	public static void main(String[] args){
 		Scanner sc = new Scanner(System.in);
-		int n = sc.nextInt();
-		int[] a1 = new int[n];
+		int m = sc.nextInt();
+		/*int n = sc.nextInt();
+		int[][] a1 = new int[m][n];
 		for(int i =0; i<n; i++){
-			a1[i]= sc.nextInt();
-		}
+			for(int j = 0; j<m; j++)
+				a1[i][j]= sc.nextInt();
+		}*/
 		arrayList al = new arrayList();
-		int[] ans = al.plusOne(a1);
-		for(int i = 0; i<ans.length; i++)
-			System.out.printf("%d ", ans[i]);
+		//int[][] a1 = {{1,2},{3,4}};
+		List<List<Integer>> ans = al.generate(m);
+		System.out.print(ans);
+		//for(int i = 0; i<ans.length; i++)
+		//	System.out.printf("%d ", ans[i]);
 	}
 	public int pivotIndex(int[] nums) {
 		int n = nums.length;
@@ -86,5 +91,89 @@ public class arrayList{
 		    return ans;
 	    }
 	    return digits;
+    }
+    public int[] findDiagonalOrder(int[][] mat) {
+	    int m = mat.length;
+	    int n = mat[0].length;
+	    int[] ans = new int[m*n];
+	    ArrayList<ArrayList<Integer>> diagonal = new ArrayList<ArrayList<Integer>>(m+n-1);
+	    for(int i = 0; i<m+n-1; i++)
+		    diagonal.add(new ArrayList<Integer>());
+	    for(int i = 0; i<m; i++){
+		    for(int j = 0; j<n; j++){
+			    //System.out.printf("i = %d, j = %d, mat[i][j] = %d", i,j,mat[i][j]);
+			    diagonal.get(i+j).add(mat[i][j]);
+		    }
+	    }
+	    int k = 0;
+	    for(int i = 0; i<m+n-1; i++){
+		    for(int j = 0; j< diagonal.get(i).size(); j++){
+			    if(i%2 !=0)
+			    	ans[k++] = diagonal.get(i).get(j);
+			    else{
+				    for(int t = diagonal.get(i).size()-1; t>=0; t--){
+					    ans[k++] = diagonal.get(i).get(t);
+					    j++;
+				    }
+
+			    }
+		    }
+	    }
+	    return ans;
+    }
+    public List<Integer> spiralOrder(int[][] matrix){
+	    int m = matrix.length;
+	    List<Integer> ans = new ArrayList<Integer>();
+	    if(m==0)
+		    return ans;
+	    int n = matrix[0].length;
+	    int c1 = 0, c2 = n-1, r1 = 0, r2 = m-1;
+	    int d = 0;
+	    while(c1<=c2 && r1<=r2){
+		    if(d == 0){
+			    d = 1;
+			    for(int i =c1; i<=c2; i++){
+				    ans.add(matrix[r1][i]);
+			    }
+			    r1++;
+		    }
+		else if(d ==1){
+			d = 2;
+			for(int i = r1; i<=r2; i++){
+				ans.add(matrix[i][c2]);
+			}
+			c2--;
+		}
+		else if(d ==2){
+			d = 3;
+			for(int i = c2; i>=c1; i--)
+				ans.add(matrix[r2][i]);
+			r2--;
+		}
+		else if(d==3){
+			d = 0;
+			for(int i = r2; i>= r1; i--)
+				ans.add(matrix[i][c1]);
+			c1++;
+		}
+		    }
+	    return ans;
+    }
+    public List<List<Integer>> generate(int numRows) {
+	    List<List<Integer>> ans = new ArrayList<List<Integer>>();
+	    for(int i =0; i<numRows; i++)
+		    ans.add(new ArrayList<Integer>());
+	    ans.get(0).add(1);
+	    if(numRows == 1)
+		    return ans;
+	    for(int i = 1; i<numRows; i++){
+		    ans.get(i).add(1);
+		    for(int j = 1; j<i; j++){
+			    int s = ans.get(i-1).get(j-1) + ans.get(i-1).get(j);
+			    ans.get(i).add(s);
+		    }
+		    ans.get(i).add(1);
+	    }
+	    return ans;
     }
 }

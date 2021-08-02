@@ -4,12 +4,14 @@ class string{
 	public static void main(String[] args){
 		Scanner sc = new Scanner(System.in);
 		String st1 = sc.nextLine();
-		String st2 = sc.nextLine();
+		//String st2 = sc.nextLine();
 		char[] charst1 = st1.toCharArray();
-		char[] charst2 = st2.toCharArray();
+		//char[] charst2 = st2.toCharArray();
 		string st = new string();
+		st.reverseString(charst1);
+		System.out.print(charst1);
 		//System.out.printf("%d ", st.strStr("mississippi", "pi"));
-		System.out.printf("%d ", st.strStr(st1, st2));
+		//System.out.printf("%d ", st.strStr(st1, st2));
 		/*int n = charst1.length;
 		int m = charst2.length;
 		int carry = 0;
@@ -86,6 +88,19 @@ class string{
 			    return left.substring(0, i);
 	    }
 	    return left.substring(0, min);
+    }
+    public void reverseString(char[] s) {
+	    int n = s.length-1, i = 0;
+	    while(i < n){
+		    swap(s,i,n);
+		    i++;
+		    n--;
+	    }
+    }
+    void swap(char[] s, int i, int n){
+	    char x = s[i];
+	    s[i] = s[n];
+	    s[n] = x;
     }
 
 }
